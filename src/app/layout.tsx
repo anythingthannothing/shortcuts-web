@@ -1,5 +1,4 @@
 import './globals.css';
-import './base.scss';
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
@@ -12,6 +11,8 @@ import Footer from '@/modules/layout/footer/footer';
 import Navbar from '@/modules/layout/navbar/navbar';
 import Sidebar from '@/modules/layout/sidebar/ui/sidebar';
 import { Toaster } from '@/shared/components/ui/toaster';
+
+import styles from './base.module.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,7 +38,7 @@ export default async function RootLayout({
   const programCategories = await getAllProgramsAction();
 
   return (
-    <html lang="en" className={'light h-full w-full'}>
+    <html lang="en" className={`light h-full w-full ${styles.base}`}>
       <head>
         <link
           rel="apple-touch-icon"

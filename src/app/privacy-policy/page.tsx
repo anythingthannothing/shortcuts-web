@@ -1,4 +1,4 @@
-import style from './style.module.scss';
+import style from './privacy-policy.module.scss';
 
 export const metadata = {
   title: 'Privacy Policy',
@@ -7,7 +7,7 @@ export const metadata = {
 
 function Page() {
   return (
-    <div className={style.div}>
+    <div className={style.privacyPolicy}>
       <h1>Privacy Policy</h1>
       <p>Last updated: December 13, 2024</p>
       <p>

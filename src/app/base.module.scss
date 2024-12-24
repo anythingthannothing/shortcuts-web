@@ -1,0 +1,24 @@
+.base {
+  & * {
+    @apply border-border;
+    @apply box-border;
+  }
+
+  & html {
+    scrollbar-width: none;
+
+    -ms-overflow-style: none;
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  & body {
+    @apply bg-background text-foreground;
+  }
+
+  & h3 {
+    font-size: 1.25rem;
+  }
+}
