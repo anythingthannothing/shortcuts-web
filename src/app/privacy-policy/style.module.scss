@@ -1,0 +1,66 @@
+.div {
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  font-size: 2rem;
+}
+  
+
+h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+}
+
+p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+ul {
+  margin-left: 20px;
+  list-style: disc;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+@media (width <= 768px) {
+  div {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+}
+}
+

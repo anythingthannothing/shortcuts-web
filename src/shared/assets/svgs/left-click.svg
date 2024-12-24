@@ -1,0 +1,16 @@
+<svg width="100px" height="150px" viewBox="0 0 100 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- 마우스 전체 모양(타원) -->
+    <ellipse cx="50" cy="75" rx="35" ry="50" fill="#ccc" stroke="#333" stroke-width="2" />
+
+    <!-- 중앙 가로 경계선 (위쪽 버튼 영역과 본체 구분) -->
+    <line x1="15" y1="75" x2="85" y2="75" stroke="#333" stroke-width="2" />
+
+    <!-- 왼쪽 버튼 영역(상단 왼쪽 반) 강조: 검은색 -->
+    <path d="M50,25
+           A35,50 0 0 0 15,75
+           L50,75
+           Z" fill="#000" />
+
+    <!-- 마우스 휠 -->
+    <rect x="47" y="50" width="6" height="20" fill="#333" rx="3" />
+</svg>

@@ -1,0 +1,17 @@
+networks:
+  shortcut:
+
+services:
+  postgres:
+    image: postgres:16.3-alpine
+    restart: always
+    volumes:
+      - ../data/pg-data:/var/libs/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    networks:
+      - shortcut
