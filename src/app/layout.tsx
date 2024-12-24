@@ -5,7 +5,6 @@ import { Inter } from 'next/font/google';
 import React from 'react';
 
 import Providers from '@/app/_context/providers';
-import { getProgramCategoriesAction } from '@/app/categories/[category]/get-program-categories-action';
 import { getAllProgramsAction } from '@/entities/program-category/api/get-program-categories-action';
 import Footer from '@/modules/layout/footer/footer';
 import Navbar from '@/modules/layout/navbar/navbar';
@@ -34,11 +33,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const categories = await getProgramCategoriesAction();
   const programCategories = await getAllProgramsAction();
 
   return (
-    <html lang="en" className={`light h-full w-full ${styles.base}`}>
+    <html
+      lang="en"
+      className={`light h-full min-w-screen max-w-screen ${styles.base}`}
+    >
       <head>
         <link
           rel="apple-touch-icon"
@@ -62,19 +63,19 @@ export default async function RootLayout({
       <body className={`${inter.className} h-full w-full`}>
         <Providers>
           <div className={'relative flex flex-col'}>
-            <Navbar categories={categories.map((category) => category.name)} />
+            <Navbar />
             <div className={'flex flex-col'}>
               <div className={'flex overflow-hidden'}>
                 <aside
                   className={
-                    'flex flex-col gap-4 border-r border-border px-3 pt-4 pb-8 w-[300px] h-screen overflow-y-auto'
+                    'hidden md:flex flex-col gap-4 border-r border-border px-3 pt-4 pb-8 w-[300px] h-screen overflow-y-auto'
                   }
                 >
                   <Sidebar programCategories={programCategories} />
                 </aside>
                 <main
                   className={
-                    'relative flex-1 px-4 pt-4 pb-12 h-screen overflow-y-auto'
+                    'relative flex-1 px-4 pt-4 pb-12 h-screen overflow-y-auto max-w-screen'
                   }
                 >
                   {children}
