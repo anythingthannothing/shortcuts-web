@@ -1,0 +1,7 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /profile
+
+# Host
+Host: https://everyshortcuts.com

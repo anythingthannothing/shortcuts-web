@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 import React from 'react';
 
 import { getProgramBySlugAction } from '@/app/[slug]/get-program-by-slug-action';
 import { getProgramsAction } from '@/app/[slug]/get-programs-action';
-import SlugArticle from '@/features/program/detail/ui/slug-article';
-import SlugAside from '@/features/program/detail/ui/slug-aside';
+import ProgramDetailModule from '@/modules/program/program-detail-module';
 
 interface Program {
   slug: string;
@@ -46,19 +44,9 @@ export async function generateStaticParams() {
 }
 
 async function ProgramDetailPage({ params }: { params: Params }) {
-  const { slug } = await params;
-  const program = await getProgramBySlugAction(slug);
+  const slug = (await params).slug;
 
-  if (!program) {
-    redirect('/');
-  }
-
-  return (
-    <section className={'lg:grid lg:grid-cols-12 gap-8 relative'}>
-      <SlugArticle program={program} slug={slug} />
-      <SlugAside program={program} />
-    </section>
-  );
+  return <ProgramDetailModule slug={slug} />;
 }
 
 export default ProgramDetailPage;

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 import { getProgramCategoriesAction } from '@/app/categories/[category]/get-program-categories-action';
@@ -12,10 +13,29 @@ interface ProgramCategory {
 
 type Params = Promise<{ category: string }>;
 
+interface Props {
+  params: Params;
+}
+
 export const revalidate = 3600;
 
 export const dynamic = 'force-static';
 export const dynamicParams = true;
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const name = (await params).category;
+
+  const programCategory = await getProgramCategoryAction(name);
+
+  if (!programCategory) {
+    return {};
+  }
+
+  return {
+    title: programCategory.name,
+    description: `${programCategory.name}'s programs`,
+  };
+}
 
 export async function generateStaticParams() {
   const programCategories: ProgramCategory[] =
