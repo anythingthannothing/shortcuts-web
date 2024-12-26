@@ -46,9 +46,13 @@ export async function generateStaticParams() {
   }));
 }
 
-async function ProgramsByCategoryPage({ params }: { params: Params }) {
+async function ProgramsByCategoryPage({ params }: Props) {
   const name = (await params).category;
   const programCategory = await getProgramCategoryAction(name);
+
+  if (!programCategory) {
+    return <></>;
+  }
 
   return (
     <ProgramsByCategoryModule

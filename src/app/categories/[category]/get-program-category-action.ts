@@ -1,5 +1,7 @@
 import 'server-only';
 
+import { unstable_cache } from 'next/cache';
+
 import db from '@/shared/libs/db';
 
 const select = {
@@ -15,15 +17,13 @@ const select = {
   },
 };
 
-export const getProgramCategoryAction = async (name: string) => {
-  const programCategory = await db.programCategory.findUnique({
-    select,
-    where: { name },
-  });
-
-  if (!programCategory) {
-    throw new Error('Invalid program category id');
-  }
-
-  return programCategory;
-};
+export const getProgramCategoryAction = unstable_cache(
+  async (name: string) => {
+    return db.programCategory.findUnique({
+      select,
+      where: { name },
+    });
+  },
+  [],
+  { revalidate: 3600 },
+);
