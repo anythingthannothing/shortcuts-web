@@ -28,6 +28,19 @@ const nextConfig = {
   sassOptions: {
     silenceDeprecations: ['legacy-js-api'],
   },
+  headers: () => {
+    return [
+      {
+        source: '/((?!_next|.*\\.).*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, immutable',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
