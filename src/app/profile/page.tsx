@@ -1,8 +1,9 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 import ProfileModule from '@/modules/user/profile-module';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Profile',
   description: '',
 };
