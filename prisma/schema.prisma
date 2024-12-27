@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model additionalInfo {
+  programId   Int     @id(map: "PK_f1b72d07ba0936a906fcc6b11ad") @map("program_id") @db.SmallInt
+  make        String  @db.VarChar(255)
+  notice      String? @db.VarChar(255)
+  longDesc    String  @map("long_desc") @db.VarChar(1000)
+  homepageUrl String  @map("homepage_url") @db.VarChar(1024)
+  program     program @relation(fields: [programId], references: [programId], onDelete: NoAction, onUpdate: NoAction, map: "FK_f1b72d07ba0936a906fcc6b11ad")
+
+  @@map("additional_info")
+}
+
+model bookmark {
+  userId    Int     @map("user_id")
+  programId Int     @map("program_id") @db.SmallInt
+  program   program @relation(fields: [programId], references: [programId], onDelete: NoAction, onUpdate: NoAction, map: "FK_77ac546ae749b109b93be7a4c48")
+  user      user    @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "FK_8f1a143c6ba8bba0e2a4f41e0d0")
+
+  @@id([userId, programId], map: "PK_54ea03279ad65e6a73c1059f5c9")
+}
+
+model program {
+  programId          Int                @id(map: "PK_53f58709c0270f634ebc233c52c") @default(autoincrement()) @map("program_id") @db.SmallInt
+  programCategoryId  Int                @map("program_category_id") @db.SmallInt
+  category           String?            @db.VarChar
+  isDraft            Boolean            @default(true) @map("is_draft")
+  name               String             @unique(map: "UQ_2156fc4598c9a1b865d85b5f1ec") @db.VarChar(20)
+  slug               String             @unique(map: "UQ_47cad5c026f06153b40724baffe") @db.VarChar(30)
+  shortDesc          String             @map("short_desc") @db.VarChar(255)
+  likes              Int                @default(0)
+  supportWindow      Boolean            @default(false) @map("support_window")
+  supportMac         Boolean            @default(false) @map("support_mac")
+  additionalInfo     additionalInfo?
+  bookmarks          bookmark[]
+  programCategory    programCategory    @relation(fields: [programCategoryId], references: [programCategoryId], onDelete: NoAction, onUpdate: NoAction, map: "FK_04942095cb68176488cb740b77f")
+  relatedContents    relatedContent[]
+  shortcuts          shortcut[]
+  shortcutCategories shortcutCategory[]
+}
+
+model programCategory {
+  programCategoryId Int       @id(map: "PK_ec7466bce1bd46a45f6113aa96b") @default(autoincrement()) @map("program_category_id") @db.SmallInt
+  name              String    @unique(map: "UQ_d9c2e4c62005a6af5b83ed50eba") @db.Citext
+  order             Int       @db.SmallInt
+  programs          program[]
+
+  @@map("program_category")
+}
+
+model refreshToken {
+  userId    Int    @map("user_id")
+  token     String @db.Char(12)
+  expiresAt Int    @map("expires_at")
+  user      user   @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "FK_6bbe63d2fe75e7f0ba1710351d4")
+
+  @@id([userId, token], map: "PK_fdd382f06ffd5434c619c6f76a7")
+  @@map("refresh_token")
+}
+
+model relatedContent {
+  relatedContentId Int                    @id(map: "PK_d53cc5e57fce936f9fdd1c0b53b") @default(autoincrement()) @map("related_content_id")
+  programId        Int                    @map("program_id") @db.SmallInt
+  title            String                 @db.VarChar
+  type             relatedContentTypeEnum
+  url              String                 @db.VarChar(255)
+  program          program                @relation(fields: [programId], references: [programId], onDelete: NoAction, onUpdate: NoAction, map: "FK_15549fc62b1b2ae6c10740ff2f5")
+
+  @@map("related_content")
+}
+
+model shortcut {
+  shortcutId         Int              @id(map: "PK_3e7ddf02406efc9aa77233cd183") @default(autoincrement()) @map("shortcut_id") @db.SmallInt
+  programId          Int              @map("program_id") @db.SmallInt
+  shortcutCategoryId Int              @map("shortcut_category_id") @db.SmallInt
+  winKey             String?          @map("win_key") @db.VarChar(50)
+  macKey             String?          @map("mac_key") @db.VarChar(50)
+  recommended        Boolean          @default(false)
+  likes              Int              @default(0)
+  description        String           @db.VarChar(1000)
+  program            program          @relation(fields: [programId], references: [programId], onDelete: NoAction, onUpdate: NoAction, map: "FK_4dc4370433ffe1d2f7702ca6135")
+  shortcutCategory   shortcutCategory @relation(fields: [shortcutCategoryId], references: [shortcutCategoryId], onDelete: NoAction, onUpdate: NoAction, map: "FK_be583728f7d12da38f5b4684e67")
+}
+
+model shortcutCategory {
+  shortcutCategoryId Int        @id(map: "PK_edb75696a374e786ded4fa0303b") @default(autoincrement()) @map("shortcut_category_id") @db.SmallInt
+  programId          Int        @map("program_id") @db.SmallInt
+  name               String     @db.VarChar
+  order              Int        @db.SmallInt
+  shortcuts          shortcut[]
+  program            program    @relation(fields: [programId], references: [programId], onDelete: Cascade, onUpdate: NoAction, map: "FK_e88328fd48091a44b7af3126e07")
+
+  @@unique([programId, name], map: "UQ_883b12e2ad9b3cc97cc95d0cd78")
+  @@map("shortcut_category")
+}
+
+model user {
+  userId        Int            @id(map: "PK_758b8ce7c18b9d347461b30228d") @default(autoincrement()) @map("user_id")
+  email         String         @unique(map: "UQ_e12875dfb3b1d92d7d7c5377e22") @db.VarChar(60)
+  nickname      String?        @db.VarChar(30)
+  thumbnailUrl  String?        @map("thumbnail_url") @db.VarChar(255)
+  job           userJobEnum?
+  googleId      String?        @unique(map: "UQ_7adac5c0b28492eb292d4a93871") @map("google_id") @db.VarChar(255)
+  prefersMac    Boolean        @default(false) @map("prefers_mac")
+  createdAt     DateTime       @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt     DateTime       @default(now()) @map("updated_at") @db.Timestamp(6)
+  bookmarks     bookmark[]
+  refreshTokens refreshToken[]
+}
+
+enum relatedContentTypeEnum {
+  video
+  article
+  book
+
+  @@map("related_content_type_enum")
+}
+
+enum userJobEnum {
+  unknown
+  swe
+  designer
+  uiux
+  student
+  educator
+  researcher
+  pm
+  data
+  marketing
+  creator
+  business
+  entrepreneur
+  freelancer
+  sales
+
+  @@map("user_job_enum")
+}
