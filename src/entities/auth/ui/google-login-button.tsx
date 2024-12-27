@@ -10,25 +10,35 @@ function GoogleLoginButton() {
   const { toast } = useToast();
   const { mutate, isPending, error } = useGoogleLogin();
 
-  return (
-    <GoogleLogin
-      onSuccess={async ({ credential }: CredentialResponse) => {
-        if (!credential) {
-          return;
-        }
+  if (error) {
+    toast({
+      variant: 'destructive',
+      title: 'Google Login failed.',
+      description: 'Unexpected error occurred. Please try again later.',
+    });
+  }
 
-        mutate(credential);
-      }}
-      onError={() => {
-        toast({
-          variant: 'destructive',
-          title: 'Google Login failed.',
-          description: 'Unexpected error occurred. Please try again later.',
-        });
-      }}
-      useOneTap={true}
-      size={'medium'}
-    />
+  return (
+    <div className={'hidden md:block pb-1'}>
+      <GoogleLogin
+        onSuccess={({ credential }: CredentialResponse) => {
+          if (!credential) {
+            return;
+          }
+
+          mutate(credential);
+        }}
+        onError={() => {
+          toast({
+            variant: 'destructive',
+            title: 'Google Login failed.',
+            description: 'Unexpected error occurred. Please try again later.',
+          });
+        }}
+        useOneTap={true}
+        size={'medium'}
+      />
+    </div>
   );
 }
 

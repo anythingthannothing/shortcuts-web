@@ -6,21 +6,22 @@ import { categoryInfos } from '@/shared/libs/const/categories';
 
 interface Props {
   categories: string[];
+  currentCategory?: string;
 }
 
-function CategoryFilter({ categories }: Props) {
+function CategoryFilter({ categories, currentCategory }: Props) {
   return (
     <section className={''}>
       <ScrollArea>
         <div className="flex gap-6">
           {categories.map((name: string) => {
-            // const isActive = item.name === category;
+            const isActive = name === currentCategory;
             const item = categoryInfos[name.toLowerCase()];
             return (
               <Link
                 key={item.name}
                 href={`/categories/${item.name.toLowerCase()}`}
-                // className={isActive ? 'border-b-4 border-primary' : ''}
+                className={isActive ? 'border-b-4 border-primary' : ''}
               >
                 <article
                   className={`p-2 flex flex-col items-center cursor-pointer duration-300 hover:text-primary`}

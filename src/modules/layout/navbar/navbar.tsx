@@ -1,15 +1,10 @@
 import React from 'react';
 
 import UserIcon from '@/entities/auth/ui/user-icon';
-import CategoryFilter from '@/features/program-category/list/ui/category-filter';
 import DarkMode from '@/modules/layout/navbar/dark-mode';
 import Logo from '@/modules/layout/navbar/logo';
 
-interface Props {
-  categories: string[];
-}
-
-function Navbar({ categories }: Props) {
+function Navbar() {
   return (
     <nav
       className={
@@ -22,8 +17,7 @@ function Navbar({ categories }: Props) {
         }
       >
         <Logo />
-        <CategoryFilter categories={categories} />
-        <div className={'flex gap-6 items-center'}>
+        <div className={'flex gap-2 md:gap-6 items-center'}>
           <DarkMode />
           <UserIcon />
         </div>
