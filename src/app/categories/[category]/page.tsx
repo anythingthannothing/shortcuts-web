@@ -23,9 +23,9 @@ export const dynamic = 'force-static';
 export const dynamicParams = true;
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const name = (await params).category;
+  const { category } = await params;
 
-  const programCategory = await getProgramCategoryAction(name);
+  const programCategory = await getProgramCategoryAction(category);
 
   if (!programCategory) {
     return {};
@@ -47,19 +47,9 @@ export async function generateStaticParams() {
 }
 
 async function ProgramsByCategoryPage({ params }: Props) {
-  const name = (await params).category;
-  const programCategory = await getProgramCategoryAction(name);
+  const { category } = await params;
 
-  if (!programCategory) {
-    return <></>;
-  }
-
-  return (
-    <ProgramsByCategoryModule
-      category={programCategory.name}
-      programs={programCategory.programs}
-    />
-  );
+  return <ProgramsByCategoryModule category={category} />;
 }
 
 export default ProgramsByCategoryPage;

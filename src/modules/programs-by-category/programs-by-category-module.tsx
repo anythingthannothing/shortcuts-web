@@ -1,14 +1,15 @@
 import { getProgramCategoriesAction } from '@/app/categories/[category]/get-program-categories-action';
+import { getProgramCategoryAction } from '@/app/categories/[category]/get-program-category-action';
 import ProgramCard from '@/features/program/card/ui/program-card';
 import CategoryFilter from '@/features/program-category/list/ui/category-filter';
 
 interface Props {
   category: string;
-  programs: any[];
 }
 
-async function ProgramsByCategoryModule({ programs, category }: Props) {
+async function ProgramsByCategoryModule({ category }: Props) {
   const categories = await getProgramCategoriesAction();
+  const programCategory = await getProgramCategoryAction(category);
   return (
     <div className={'flex flex-col gap-8'}>
       <CategoryFilter
@@ -16,7 +17,7 @@ async function ProgramsByCategoryModule({ programs, category }: Props) {
         currentCategory={category}
       />
       <section className={'flex gap-12'}>
-        {programs.map((program) => (
+        {programCategory?.programs.map((program) => (
           <ProgramCard key={program.programId} item={program} />
         ))}
       </section>

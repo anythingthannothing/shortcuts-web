@@ -17,13 +17,13 @@ const select = {
   },
 };
 
-export const getProgramCategoryAction = unstable_cache(
-  async (name: string) => {
-    return db.programCategory.findUnique({
-      select,
-      where: { name },
-    });
-  },
-  [],
-  { revalidate: 3600 },
-);
+export const getProgramCategoryAction = async (name: string) =>
+  unstable_cache(
+    async () =>
+      db.programCategory.findUnique({
+        select,
+        where: { name },
+      }),
+    ['categoryName', name],
+    { revalidate: 3600 },
+  )();

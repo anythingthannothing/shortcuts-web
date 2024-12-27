@@ -17,6 +17,6 @@ export const getProgramCategoriesAction = unstable_cache(
       },
     });
   },
-  [],
+  ['categories'],
   { revalidate: 3600 },
 );
