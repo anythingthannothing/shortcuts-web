@@ -1235,6 +1235,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@corex/deepmerge@npm:^4.0.43":
+  version: 4.0.43
+  resolution: "@corex/deepmerge@npm:4.0.43"
+  checksum: 10c0/3dc31721d10c0552c667392e01a67034d9f39417d275fb2f986140592fbdb5cbcf5ac82b45bcbaf9747fd659017bc7857283019d11929e8b03e8966934ab34b9
+  languageName: node
+  linkType: hard
+
 "@csstools/css-parser-algorithms@npm:^3.0.1":
   version: 3.0.4
   resolution: "@csstools/css-parser-algorithms@npm:3.0.4"
@@ -1665,6 +1672,13 @@ __metadata:
   version: 15.0.3
   resolution: "@next/env@npm:15.0.3"
   checksum: 10c0/63582fed80d6a28fff102c935095da71fd57ddf6b5f5d564e85ebdefdeb93298f7f7cf7d813c75b460c6627106717ea959b4c232939e7abb97d73d8b8467d4cd
+  languageName: node
+  linkType: hard
+
+"@next/env@npm:^13.4.3":
+  version: 13.5.8
+  resolution: "@next/env@npm:13.5.8"
+  checksum: 10c0/49a19f0b114fb86f0fdedba57159a4d08fec673eba75ba081406978f3dbe80403ba645704a6dbc496a0fcf3fb08a8fd9ed76a09aeb5f04dd0d810b3546e66d40
   languageName: node
   linkType: hard
 
@@ -4945,7 +4959,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2":
+"fast-glob@npm:^3.2.12, fast-glob@npm:^3.2.9, fast-glob@npm:^3.3.2":
   version: 3.3.2
   resolution: "fast-glob@npm:3.3.2"
   dependencies:
@@ -6435,7 +6449,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimist@npm:^1.2.0, minimist@npm:^1.2.6":
+"minimist@npm:^1.2.0, minimist@npm:^1.2.6, minimist@npm:^1.2.8":
   version: 1.2.8
   resolution: "minimist@npm:1.2.8"
   checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
@@ -6580,6 +6594,23 @@ __metadata:
   version: 0.6.4
   resolution: "negotiator@npm:0.6.4"
   checksum: 10c0/3e677139c7fb7628a6f36335bf11a885a62c21d5390204590a1a214a5631fcbe5ea74ef6a610b60afe84b4d975cbe0566a23f20ee17c77c73e74b80032108dea
+  languageName: node
+  linkType: hard
+
+"next-sitemap@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "next-sitemap@npm:4.2.3"
+  dependencies:
+    "@corex/deepmerge": "npm:^4.0.43"
+    "@next/env": "npm:^13.4.3"
+    fast-glob: "npm:^3.2.12"
+    minimist: "npm:^1.2.8"
+  peerDependencies:
+    next: "*"
+  bin:
+    next-sitemap: bin/next-sitemap.mjs
+    next-sitemap-cjs: bin/next-sitemap.cjs
+  checksum: 10c0/8a367c9db84ca249797ec900d06c267434265bf635a82bc0896d35bc0ce85eee0cf115d4340baa93dd20fde081e513115d38776b5e8a5b3fb604c7b34a8542ea
   languageName: node
   linkType: hard
 
@@ -8237,6 +8268,7 @@ __metadata:
     jsonwebtoken: "npm:^9.0.2"
     lucide-react: "npm:^0.436.0"
     next: "npm:^15.0.3"
+    next-sitemap: "npm:^4.2.3"
     postcss: "npm:^8"
     prettier: "npm:^3.3.3"
     prettier-plugin-tailwindcss: "npm:^0.6.8"

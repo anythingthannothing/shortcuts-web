@@ -2,13 +2,11 @@ import React from 'react';
 
 import { getProgramCategoriesAction } from '@/app/categories/[category]/get-program-categories-action';
 import CategoryFilter from '@/features/program-category/list/ui/category-filter';
+import { getTopProgramsAction } from '@/modules/home/api/get-top-programs-action';
 import HomeList from '@/modules/home/ui/home-list';
 
-interface Props {
-  rankedPrograms: Record<string, any>;
-}
-
-async function HomeModule({ rankedPrograms }: Props) {
+async function HomeModule() {
+  const rankedPrograms = await getTopProgramsAction();
   const categories = await getProgramCategoriesAction();
   return (
     <section className={'relative flex flex-col flex-1 h-full gap-8'}>
