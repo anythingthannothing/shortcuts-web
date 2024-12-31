@@ -10,6 +10,7 @@ import Footer from '@/modules/layout/footer/footer';
 import Navbar from '@/modules/layout/navbar/navbar';
 import Sidebar from '@/modules/layout/sidebar/ui/sidebar';
 import { Toaster } from '@/shared/components/ui/toaster';
+import GoogleAnalytics from '@/shared/configs/ga/google-analytics';
 
 import styles from './base.module.scss';
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const programCategories = await getAllProgramsAction();
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html
@@ -61,6 +63,7 @@ export default async function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${inter.className} h-full w-full`}>
+        {gaId ? <GoogleAnalytics gaId={gaId} /> : null}
         <Providers>
           <div className={'relative flex flex-col'}>
             <Navbar />

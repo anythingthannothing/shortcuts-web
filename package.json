@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx prisma generate && next build",
+    "build": "npx prisma generate && next build && next-sitemap",
     "start": "npx prisma generate && next build && cp -r public .next/standalone/ && cp -r .next/static .next/standalone/.next && node ./.next/standalone/server.js",
     "lint": "next lint"
   },
@@ -34,6 +34,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.436.0",
     "next": "^15.0.3",
+    "next-sitemap": "^4.2.3",
     "react": "^19.0.0-rc.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0-rc.1",
