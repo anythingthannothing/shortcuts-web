@@ -42,7 +42,7 @@ export async function generateStaticParams() {
     await getProgramCategoriesAction();
 
   return programCategories.map((programCategory) => ({
-    category: programCategory.name,
+    category: programCategory.name.toLowerCase(),
   }));
 }
 
