@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ImCheckboxChecked } from 'react-icons/im';
 import { MdCancel } from 'react-icons/md';
 
+import ProfileImageEditor from '@/entities/user/profile/ui/profile-image-editor';
 import { jobs } from '@/features/user/profile-form/model/jobs.const';
 import {
   UpdateProfileFormSchema,
@@ -76,6 +77,22 @@ function ProfileForm({ profileInfo, handleClick }: Props) {
       </div>
       <Form {...form}>
         <form className={'space-y-4'}>
+          <div className={'flex gap-4'}>
+            <p className="w-1/4 font-medium py-1 text-gray-600 text-lg">
+              Profile Image
+            </p>
+            {profileInfo?.thumbnailUrl ? (
+              <img
+                src={profileInfo.thumbnailUrl}
+                alt={"user's profile image"}
+                width={200}
+                height={200}
+                className={'rounded-full'}
+              />
+            ) : (
+              <ProfileImageEditor profileInfo={profileInfo} />
+            )}
+          </div>
           <div className="flex gap-4 items-center">
             <Label className="w-1/4 font-medium text-gray-600">Email</Label>
             <Input

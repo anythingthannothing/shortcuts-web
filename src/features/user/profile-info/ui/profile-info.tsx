@@ -21,6 +21,22 @@ function ProfileInfo({ profileInfo, handleClick }: Props) {
         </Button>
       </div>
       <div className="space-y-4">
+        <div className={'flex gap-4'}>
+          <p className="w-1/4 font-medium py-1 text-muted-foreground text-lg">
+            Profile Image
+          </p>
+          {profileInfo.thumbnailUrl ? (
+            <img
+              src={profileInfo.thumbnailUrl}
+              alt={"user's profile image"}
+              width={200}
+              height={200}
+              className={'rounded-full'}
+            />
+          ) : (
+            <p className="w-3/4 font-normal text-lg py-1">No profile image</p>
+          )}
+        </div>
         <ProfileItem label="Email" value={profileInfo.email} />
         <ProfileItem
           label="Nickname"
