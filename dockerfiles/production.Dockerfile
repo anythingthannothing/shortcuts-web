@@ -12,16 +12,15 @@ WORKDIR /app
 
 COPY ../package.json ../yarn.lock .yarnrc.yml ./
 
-RUN yarn --prod --frozen-lockfile
+RUN yarn --frozen-lockfile
 
 FROM base AS build
 
 WORKDIR /app
 
+COPY --from=deps /app/node_modules ./node_modules
 COPY ../ .
 COPY ../.env.production ./.env
-
-RUN yarn --frozen-lockfile
 
 ENV NEXT_TELEMETRY_DISABLED=1
 

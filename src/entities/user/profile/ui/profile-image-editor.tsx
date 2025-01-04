@@ -1,6 +1,4 @@
-import { ChangeEvent, useState } from 'react';
-import { Area } from 'react-easy-crop';
-
+import { useImageEditor } from '@/entities/user/profile/model/use-image-editor';
 import ImageCropper from '@/shared/components/form/image-cropper';
 import { Button } from '@/shared/components/ui/button';
 
@@ -9,32 +7,14 @@ interface Props {
 }
 
 const ProfileImageEditor = ({ profileInfo }: Props) => {
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
-  const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
-  const [updatedImage, setUpdatedImage] = useState<Blob | null>(null);
-
-  const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(URL.createObjectURL(file));
-      setIsImageSelected(true);
-    }
-  };
-
-  const handleSave = async (croppedArea: Area) => {
-    if (selectedFile) {
-      const croppedImage = await getCroppedImage(selectedFile, croppedArea);
-      setUpdatedImage(croppedImage);
-    }
-  };
-
-  const handleCancel = () => {
-    if (selectedFile) {
-      URL.revokeObjectURL(selectedFile);
-    }
-    setSelectedFile(null);
-    setIsImageSelected(false);
-  };
+  const {
+    selectedFile,
+    isImageSelected,
+    updatedImage,
+    handleSave,
+    handleCancel,
+    handleFileSelect,
+  } = useImageEditor();
 
   return (
     <div className="flex gap-4">
@@ -49,13 +29,19 @@ const ProfileImageEditor = ({ profileInfo }: Props) => {
       ) : (
         <Button
           type="button"
-          onClick={() => document?.getElementById('fileInput')?.click()}
+          onClick={() => {
+            document?.getElementById('fileInput')?.click();
+          }}
         >
           Update Profile Image
         </Button>
       )}
       {updatedImage && (
-        <img src={URL.createObjectURL(updatedImage)} width={200} />
+        <img
+          src={URL.createObjectURL(updatedImage)}
+          width={200}
+          className={'rounded-full'}
+        />
       )}
       <input
         type="file"
@@ -76,26 +62,3 @@ const ProfileImageEditor = ({ profileInfo }: Props) => {
 };
 
 export default ProfileImageEditor;
-
-async function getCroppedImage(
-  imageSrc: string,
-  croppedAreaPixels: Area,
-): Promise<Blob> {
-  const canvas = document.createElement('canvas');
-  const img = document.createElement('img');
-  img.src = imageSrc;
-
-  return new Promise((resolve) => {
-    img.onload = () => {
-      const ctx = canvas.getContext('2d');
-      const { width, height, x, y } = croppedAreaPixels;
-
-      canvas.width = width;
-      canvas.height = height;
-
-      ctx?.drawImage(img, x, y, width, height, 0, 0, width, height);
-
-      canvas.toBlob((blob) => resolve(blob!), 'image/webp');
-    };
-  });
-}
