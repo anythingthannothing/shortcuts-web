@@ -3,11 +3,12 @@ import { ChangeEvent, useState } from 'react';
 import { Area } from 'react-easy-crop';
 
 import { getImageUploadPresignedUrlApi } from '@/entities/user/profile/api/get-image-upload-presigned-url-api';
+import { useUpdateProfileImage } from '@/entities/user/profile/model/use-update-profile-image';
 
 export const useImageEditor = () => {
+  const { mutate } = useUpdateProfileImage();
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [isImageSelected, setIsImageSelected] = useState<boolean>(false);
-  const [updatedImage, setUpdatedImage] = useState<Blob | null>(null);
 
   const handleFileSelect = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -24,7 +25,6 @@ export const useImageEditor = () => {
   const handleSave = async (croppedArea: Area) => {
     if (selectedFile) {
       const croppedImage = await getCroppedImage(selectedFile, croppedArea);
-      setUpdatedImage(croppedImage);
 
       const formData = new FormData();
       const { url, fields } = await getImageUploadPresignedUrlApi();
@@ -34,6 +34,8 @@ export const useImageEditor = () => {
       formData.append('Content-Type', 'image/webp');
       formData.append('file', croppedImage);
       await axios.post(url, formData, { withCredentials: false });
+
+      mutate(fields.key);
     }
   };
 
@@ -48,7 +50,6 @@ export const useImageEditor = () => {
   return {
     selectedFile,
     isImageSelected,
-    updatedImage,
     handleSave,
     handleCancel,
     handleFileSelect,

@@ -10,39 +10,30 @@ const ProfileImageEditor = ({ profileInfo }: Props) => {
   const {
     selectedFile,
     isImageSelected,
-    updatedImage,
     handleSave,
     handleCancel,
     handleFileSelect,
   } = useImageEditor();
 
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-col gap-4">
       {profileInfo.thumbnailUrl ? (
         <img
           src={profileInfo.thumbnailUrl}
-          alt="user's profile image"
-          width={200}
-          height={200}
-          className="rounded-full"
-        />
-      ) : (
-        <Button
-          type="button"
-          onClick={() => {
-            document?.getElementById('fileInput')?.click();
-          }}
-        >
-          Update Profile Image
-        </Button>
-      )}
-      {updatedImage && (
-        <img
-          src={URL.createObjectURL(updatedImage)}
           width={200}
           className={'rounded-full'}
         />
+      ) : (
+        <p>No thumbnail</p>
       )}
+      <Button
+        type="button"
+        onClick={() => {
+          document?.getElementById('fileInput')?.click();
+        }}
+      >
+        Update Profile Image
+      </Button>
       <input
         type="file"
         id="fileInput"
