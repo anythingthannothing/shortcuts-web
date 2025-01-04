@@ -2,6 +2,7 @@ import React from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 
 import { DeleteAccountButton } from '@/entities/user/delete-account/ui/delete-account-button';
+import { ProfileImage } from '@/entities/user/profile/ui/profile-image';
 import { ProfileItem } from '@/entities/user/profile/ui/profile-item';
 import { Switch } from '@/shared/components/form/switch';
 import { Button } from '@/shared/components/ui/button';
@@ -25,17 +26,7 @@ function ProfileInfo({ profileInfo, handleClick }: Props) {
           <p className="w-1/4 font-medium py-1 text-muted-foreground text-lg">
             Profile Image
           </p>
-          {profileInfo.thumbnailUrl ? (
-            <img
-              src={profileInfo.thumbnailUrl}
-              alt={"user's profile image"}
-              width={200}
-              height={200}
-              className={'rounded-full'}
-            />
-          ) : (
-            <p className="w-3/4 font-normal text-lg py-1">No profile image</p>
-          )}
+          <ProfileImage src={profileInfo.thumbnailUrl} />
         </div>
         <ProfileItem label="Email" value={profileInfo.email} />
         <ProfileItem

@@ -1,6 +1,7 @@
 import { useImageEditor } from '@/entities/user/profile/model/use-image-editor';
 import ImageCropper from '@/shared/components/form/image-cropper';
 import { Button } from '@/shared/components/ui/button';
+import { ProfileImage } from '@/entities/user/profile/ui/profile-image';
 
 interface Props {
   profileInfo: any;
@@ -17,15 +18,7 @@ const ProfileImageEditor = ({ profileInfo }: Props) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {profileInfo.thumbnailUrl ? (
-        <img
-          src={profileInfo.thumbnailUrl}
-          width={200}
-          className={'rounded-full'}
-        />
-      ) : (
-        <p>No thumbnail</p>
-      )}
+      <ProfileImage src={profileInfo.thumbnailUrl} />
       <Button
         type="button"
         onClick={() => {

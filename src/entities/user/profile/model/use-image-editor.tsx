@@ -35,7 +35,7 @@ export const useImageEditor = () => {
       formData.append('file', croppedImage);
       await axios.post(url, formData, { withCredentials: false });
 
-      mutate(fields.key);
+      mutate(fields.key.split('/')[1]);
     }
   };
 

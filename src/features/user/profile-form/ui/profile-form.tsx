@@ -81,17 +81,7 @@ function ProfileForm({ profileInfo, handleClick }: Props) {
             <p className="w-1/4 font-medium py-1 text-gray-600 text-lg">
               Profile Image
             </p>
-            {profileInfo?.thumbnailUrl ? (
-              <img
-                src={profileInfo.thumbnailUrl}
-                alt={"user's profile image"}
-                width={200}
-                height={200}
-                className={'rounded-full'}
-              />
-            ) : (
-              <ProfileImageEditor profileInfo={profileInfo} />
-            )}
+            <ProfileImageEditor profileInfo={profileInfo} />
           </div>
           <div className="flex gap-4 items-center">
             <Label className="w-1/4 font-medium text-gray-600">Email</Label>
