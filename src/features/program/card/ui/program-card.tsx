@@ -25,7 +25,7 @@ function ProgramCard({ item }: any) {
           >
             <div className={'relative w-full h-full'}>
               <Image
-                src={`https://static.everyshortcuts.com/programs/${slug}`}
+                src={`${process.env.NEXT_PUBLIC_CDN_URL}/programs/${slug}`}
                 alt={`${slug}&apos;s logo`}
                 className={
                   'rounded-md transition-all duration-300 object-contain inset-4'

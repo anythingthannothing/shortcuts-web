@@ -2,6 +2,7 @@ import React from 'react';
 import { FaRegEdit } from 'react-icons/fa';
 
 import { DeleteAccountButton } from '@/entities/user/delete-account/ui/delete-account-button';
+import { ProfileImage } from '@/entities/user/profile/ui/profile-image';
 import { ProfileItem } from '@/entities/user/profile/ui/profile-item';
 import { Switch } from '@/shared/components/form/switch';
 import { Button } from '@/shared/components/ui/button';
@@ -21,6 +22,12 @@ function ProfileInfo({ profileInfo, handleClick }: Props) {
         </Button>
       </div>
       <div className="space-y-4">
+        <div className={'flex gap-4'}>
+          <p className="w-1/4 font-medium py-1 text-muted-foreground text-lg">
+            Profile Image
+          </p>
+          <ProfileImage src={profileInfo.thumbnailUrl} />
+        </div>
         <ProfileItem label="Email" value={profileInfo.email} />
         <ProfileItem
           label="Nickname"
