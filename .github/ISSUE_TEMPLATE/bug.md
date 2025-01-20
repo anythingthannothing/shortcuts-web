@@ -1,3 +1,11 @@
+---
+name: Fix Template
+about: '버그 및 에러 이슈 템플릿 '
+title: 'bug/error :'
+labels: bug
+assignees: ''
+---
+
 ## 버그 설명
 <!-- 발생한 버그에 대해 간략하게 설명해주세요. -->
 

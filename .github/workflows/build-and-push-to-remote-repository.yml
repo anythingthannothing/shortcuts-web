@@ -3,6 +3,12 @@ name: Build and Push to Remote Repository
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'src/**'
+      - 'prisma/**'
+      - 'public/**'
+      - '.github/workflows/shortcuts-build-and-push-to-remote-repository.yml'
+      - 'dockerfiles/production.Dockerfile'
 
 jobs:
   build_and_push:
@@ -34,7 +40,7 @@ jobs:
         run: |
           docker build \
             -t ${{ secrets.IMAGE_REPO_NAME}}:latest \
-            -f dockerfiles/Production.Dockerfile \
+            -f dockerfiles/production.Dockerfile \
             --platform linux/amd64 .
 
       - name: Tag & Push
